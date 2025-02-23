@@ -68,40 +68,38 @@
                             </select>
                         </div>
 
-                        <!-- Campos para iniciar sesión -->
                         <div id="loginFields" class="form-group" style="display:none;">
                             <label for="loginEmail" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="loginEmail" name="loginEmail"
+                            <input type="email" class="form-control" id="loginEmail" name="email"
                                 placeholder="Correo Electrónico">
                             <label for="loginPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="loginPassword" name="loginPassword"
+                            <input type="password" class="form-control" id="loginPassword" name="password"
                                 placeholder="Contraseña">
+                            <button type="submit" class="btn btn-primary mt-2" formaction="php/login.php">Iniciar sesión</button>
                         </div>
 
-                        <!-- Campos para registrarse -->
                         <div id="registerFields" class="form-group" style="display:none;">
                             <label for="registerName" class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" id="registerName" name="registerName"
+                            <input type="text" class="form-control" id="registerName" name="nombre"
                                 placeholder="Nombre Completo">
 
                             <label for="registerEmail" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="registerEmail" name="registerEmail"
+                            <input type="email" class="form-control" id="registerEmail" name="email"
                                 placeholder="Correo Electrónico">
 
                             <label for="registerPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="registerPassword" name="registerPassword"
+                            <input type="password" class="form-control" id="registerPassword" name="password"
                                 placeholder="Contraseña">
 
-                            <!-- Selector de rol -->
                             <label for="registerRole" class="form-label">Registrarse como:</label>
                             <select id="registerRole" name="registerRole" class="form-select">
                                 <option value="2">Docente</option>
                                 <option value="3" selected>Estudiante</option>
                             </select>
+                            <button type="submit" class="btn btn-primary mt-2">Registrarse</button>
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Acceder</button><br>
                             <p>Si es alumno acceder como "Invitado"</p>
                         </div>
                     </form>

@@ -1,63 +1,41 @@
 <?php
-include('conexion.php');
 session_start();
+include 'conexion.php';
 
-// Verificar si el formulario fue enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $correo = $_POST['correo'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Preparar la consulta para obtener los datos del usuario
-    $query = "SELECT * FROM usuarios WHERE correo = ?";
-    
-    // Preparar la declaración
-    if ($stmt = $conn->prepare($query)) {
-        // Vincular el parámetro
-        $stmt->bind_param("s", $correo);
+    $sql = "SELECT id, password FROM usuarios WHERE email = ?";
+    $stmt = $conn->prepare($sql);
 
-        // Ejecutar la consulta
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        // Verificar si el usuario existe
-        if ($result->num_rows > 0) {
-            $usuario = $result->fetch_assoc();
-            
-            // Verificar la contraseña
-            if (password_verify($password, $usuario['contraseña'])) {
-                // Almacenar los datos del usuario en la sesión
-                $_SESSION['user_id'] = $usuario['id'];
-                $_SESSION['rol_id'] = $usuario['rol_id'];
-
-                // Redirigir al panel correspondiente según el rol
-                if ($_SESSION['rol_id'] == 1) {
-                    // Redirigir al panel de administrador
-                    header("Location: dashboard_admin.php");
-                } elseif ($_SESSION['rol_id'] == 2) {
-                    // Redirigir al panel de docente
-                    header("Location: dashboard_docente.php");
-                }
-                exit;
-            } else {
-                echo "Contraseña incorrecta";
-            }
-        } else {
-            echo "No se encontró un usuario con ese correo";
-        }
-
-        // Cerrar la declaración
-        $stmt->close();
-    } else {
-        echo "Error en la preparación de la consulta: " . $conn->error;
+    if ($stmt === false) {
+        die(json_encode(["status" => "error", "message" => "Error en la consulta SQL."]));
     }
+
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $hashedPassword);
+        $stmt->fetch();
+
+        if (password_verify($password, $hashedPassword)) {
+            $_SESSION['usuario_id'] = $id;
+            echo "Login exitoso";
+            header("Location: ../usuarios.php");
+            exit();
+        } else {
+            echo "Contraseña incorrecta";
+        }
+    } else {
+        echo "Usuario no encontrado";
+    }
+
+    $stmt->close();
+    $conn->close();
+} else {
+    echo "Método no permitido.";
 }
-
-$conn->close();
 ?>
-
-<!-- Formulario HTML de inicio de sesión -->
-<form action="login.php" method="POST">
-    <input type="email" name="correo" placeholder="Correo" required>
-    <input type="password" name="password" placeholder="Contraseña" required>
-    <button type="submit">Iniciar sesión</button>
-</form>

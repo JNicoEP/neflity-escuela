@@ -1,36 +1,40 @@
 <?php
-session_start();
-include "conexion.php";
+    ob_start();
+    include 'conexion.php';
+    $conexion_response = ob_get_clean();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = $_POST['nombre'];
-    $correo = $_POST['correo'];
-    $contrasena = password_hash($_POST['contrasena'], PASSWORD_DEFAULT); // Hash seguro
+    $response_data = json_decode($conexion_response, true);
 
-    // Verificar si el correo ya existe
-    $sql_check = "SELECT id FROM usuarios WHERE correo = ?";
-    $stmt_check = $conn->prepare($sql_check);
-    $stmt_check->bind_param("s", $correo);
-    $stmt_check->execute();
-    $stmt_check->store_result();
-
-    if ($stmt_check->num_rows > 0) {
-        $_SESSION['error'] = "El correo ya está registrado.";
-        header("Location: registro.php");
-        exit();
-    }
-
-    // Insertar nuevo usuario
-    $sql = "INSERT INTO usuarios (nombre, correo, contrasena) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $nombre, $correo, $contrasena);
-
-    if ($stmt->execute()) {
-        header("Location: login.php");
+    if ($response_data['status'] === 'success') {
+        echo "Conexión a la base de datos verificada. ";
     } else {
-        $_SESSION['error'] = "Error al registrar usuario.";
-        header("Location: registro.php");
+        echo "Error en la conexión a la base de datos. ";
+        exit;
     }
-    exit();
-}
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nombre = $_POST['nombre'];
+        $email = $_POST['email'];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+
+        if ($stmt === false) {
+            die(json_encode(["status" => "error", "message" => "Error en la consulta SQL."]));
+        }
+
+        $stmt->bind_param("sss", $nombre, $email, $password);
+
+        if ($stmt->execute()) {
+            echo "Registro exitoso";
+        } else {
+            echo "Error al registrar usuario: " . $stmt->error;
+        }
+
+        $stmt->close();
+        $conn->close();
+    } else {
+        echo "Método no permitido.";
+    }
 ?>

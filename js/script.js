@@ -11,17 +11,51 @@ document.getElementById('userType').addEventListener('change', function () {
         document.getElementById('registerFields').style.display = 'none';
     }
 });
-
 document.getElementById('authForm').addEventListener('submit', function (event) {
     event.preventDefault();
-    var userType = document.getElementById('userType').value;
-    if (userType === 'guest') {
-        window.location.href = 'aulas.html';
-    } else {
-        // Agregar lógica de autenticación si es necesario
-        alert('Autenticación exitosa');
-        window.location.href = 'aulas.html';
+
+    let userType = document.getElementById('userType').value;
+    
+    if (userType === 'register') {
+        let formData = new FormData();
+        formData.append('registerEmail', document.getElementById('registerEmail').value);
+        formData.append('registerPassword', document.getElementById('registerPassword').value);
+
+        fetch('php/procesar_registro.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Registro exitoso');
+                window.location.href = 'aulas.html';
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
     }
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const userTypeSelect = document.getElementById('userType');
+    const loginFields = document.getElementById('loginFields');
+    const registerFields = document.getElementById('registerFields');
+
+    userTypeSelect.addEventListener('change', function() {
+        if (this.value === 'login') {
+            loginFields.style.display = 'block';
+            registerFields.style.display = 'none';
+        } else if (this.value === 'register') {
+            loginFields.style.display = 'none';
+            registerFields.style.display = 'block';
+        } else {
+            loginFields.style.display = 'none';
+            registerFields.style.display = 'none';
+        }
+    });
 });
 
 // loadHeader.js
@@ -157,4 +191,27 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
     toggleBtn.addEventListener("click", () => {
         sidebar.classList.toggle("active");
     });
+    //Modal iniciar sesion
+    document.addEventListener("DOMContentLoaded", function () {
+        const userType = document.getElementById("userType");
+        const loginFields = document.getElementById("loginFields");
+        const registerFields = document.getElementById("registerFields");
+        const authForm = document.getElementById("authForm");
+    
+        userType.addEventListener("change", function () {
+            if (userType.value === "login") {
+                loginFields.style.display = "block";
+                registerFields.style.display = "none";
+                authForm.action = "php/procesar_login.php";
+            } else if (userType.value === "register") {
+                loginFields.style.display = "none";
+                registerFields.style.display = "block";
+                authForm.action = "php/procesar_registro.php";
+            } else {
+                loginFields.style.display = "none";
+                registerFields.style.display = "none";
+            }
+        });
+    });
+    
 });

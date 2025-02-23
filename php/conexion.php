@@ -1,15 +1,14 @@
 <?php
-$servername = "127.0.0.1"; // O la IP del servidor MySQL
-$username = "root"; // Tu nombre de usuario de MySQL
-$password = ""; // Tu contraseña de MySQL
-$dbname = "aula_virtual"; // El nombre de tu base de datos
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "aula_virtual";
 
-// Crear la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-echo "Conectado exitosamente a la base de datos";
+    if ($conn->connect_error) {
+        die(json_encode(["status" => "error", "message" => "Conexión fallida: " . $conn->connect_error]));
+    } else {
+        echo json_encode(["status" => "success", "message" => "Conexión exitosa con la base de datos"]);
+    }
 ?>
