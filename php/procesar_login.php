@@ -1,23 +1,32 @@
 <?php
 session_start();
-include "conexion.php";
+include('conexion.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $correo = $_POST['correo'];
-    $contrasena = md5($_POST['contrasena']); // Encriptación simple
+    $email = $_POST['loginEmail'];
+    $password = $_POST['loginPassword'];
 
-    $sql = "SELECT id, nombre FROM usuarios WHERE correo = '$correo' AND contrasena = '$contrasena'";
-    $result = $conn->query($sql);
+    $query = "SELECT id, password, rol_id FROM usuarios WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($user_id, $hashed_password, $rol_id);
 
-    if ($result->num_rows > 0) {
-        $usuario = $result->fetch_assoc();
-        $_SESSION['usuario_id'] = $usuario['id'];
-        $_SESSION['usuario_nombre'] = $usuario['nombre'];
-        header("Location: dashboard.php");
+    if ($stmt->num_rows > 0) {
+        $stmt->fetch();
+        if (password_verify($password, $hashed_password)) {
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['rol_id'] = $rol_id;
+            echo "Inicio de sesión exitoso. Redirigiendo...";
+            header("refresh:2; url=../aulas.php");
+        } else {
+            echo "Contraseña incorrecta.";
+        }
     } else {
-        $_SESSION['error'] = "Correo o contraseña incorrectos";
-        header("Location: login.php");
+        echo "Correo no registrado.";
     }
-    exit();
+    $stmt->close();
 }
+$conn->close();
 ?>

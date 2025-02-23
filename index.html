@@ -58,7 +58,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="authForm">
+                    <form id="authForm" method="POST" action="php/procesar_registro.php">
                         <div class="mb-3">
                             <label for="userType" class="form-label">Tipo de Usuario </label>
                             <select id="userType" class="form-select">
@@ -67,25 +67,42 @@
                                 <option value="login">Iniciar sesión</option>
                             </select>
                         </div>
+
                         <!-- Campos para iniciar sesión -->
                         <div id="loginFields" class="form-group" style="display:none;">
                             <label for="loginEmail" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="loginEmail" placeholder="Correo Electrónico">
+                            <input type="email" class="form-control" id="loginEmail" name="loginEmail"
+                                placeholder="Correo Electrónico">
                             <label for="loginPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña">
+                            <input type="password" class="form-control" id="loginPassword" name="loginPassword"
+                                placeholder="Contraseña">
                         </div>
+
                         <!-- Campos para registrarse -->
                         <div id="registerFields" class="form-group" style="display:none;">
+                            <label for="registerName" class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-control" id="registerName" name="registerName"
+                                placeholder="Nombre Completo">
+
                             <label for="registerEmail" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="registerEmail"
+                            <input type="email" class="form-control" id="registerEmail" name="registerEmail"
                                 placeholder="Correo Electrónico">
+
                             <label for="registerPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="registerPassword" placeholder="Contraseña">
+                            <input type="password" class="form-control" id="registerPassword" name="registerPassword"
+                                placeholder="Contraseña">
+
+                            <!-- Selector de rol -->
+                            <label for="registerRole" class="form-label">Registrarse como:</label>
+                            <select id="registerRole" name="registerRole" class="form-select">
+                                <option value="2">Docente</option>
+                                <option value="3" selected>Estudiante</option>
+                            </select>
                         </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Acceder</button><br>
                             <p>Si es alumno acceder como "Invitado"</p>
-
                         </div>
                     </form>
                 </div>
