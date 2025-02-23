@@ -1,0 +1,687 @@
+/* General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fb;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedores */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Estilos para el Navbar */
+.navbar {
+    
+    top: 0px;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    margin: 0.5rem 3px;
+}
+
+.nav-link {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-toggler {
+    padding: 0.25rem 0.5rem;
+}
+
+/* Estilos para el menú desplegable */
+.dropdown-menu {
+    min-width: 250px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.dropdown-item {
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    color: #333;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #0d6efd;
+    color: white;
+    transform: translateX(10px);
+}
+
+/* Estilos para el header y el footer */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+footer {
+    background-color: #0d6efd;
+    color: white;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para el Carrusel */
+
+#carouselExample .carousel-inner {
+    width: auto;
+    height: 600px;
+    overflow: hidden;
+}
+.carousel-img {
+    width: 600px;
+    height: 800px;
+    object-fit: contain; /* Asegura que la imagen se ajuste sin recortarse */
+    object-position: center; /* Centra la imagen dentro del contenedor */
+}
+
+
+.carousel-item img {
+    width: 600px;
+    height: 800px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+#carouselExample .carousel-control-prev-icon, 
+#carouselExample .carousel-control-next-icon {
+    background-color: #4da058;
+    border-radius: 100%;
+}
+
+#carouselExample .carousel-control-prev-icon:hover, 
+#carouselExample .carousel-control-next-icon:hover {
+    background-color: #1e4423;
+}
+
+
+
+/* Estilos para los Formularios */
+form .form-control {
+    margin-bottom: 1rem;
+}
+
+form .btn-primary {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.login {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login label {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.login input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.login button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para las tarjetas */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #0d6efd;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #666;
+}
+
+.btn-custom {
+    background-color: #0d6efd;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #0b5ed7;
+}
+
+/* Estilos para el Footer */
+.footer {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer .fab {
+    transition: 0.3s;
+}
+
+.footer .fab:hover {
+    color: #f8f9fa;
+    transform: scale(1.1);
+    margin-top: auto;
+}
+
+/* Estilos para el formulario de registro */
+.form-register {
+    width: 100%;
+    background: #24303c;
+    padding: 20px;
+    border-radius: 4px;
+    font-family: 'Calibri', sans-serif;
+    color: white;
+    box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.controls {
+    width: 100%;
+    background: #1e2a38;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    border: 1px solid #1f53c5;
+    font-size: 16px;
+    color: white;
+}
+
+.botons {
+    width: 100%;
+    background: #1f53c5;
+    border: none;
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.botons:hover {
+    background: #163b9e;
+}
+
+/* Estilos para las publicaciones */
+.publicacion {
+    margin-bottom: 20px;
+}
+
+.publicacion iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para las tablas */
+.horarios-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.horarios-table th, .horarios-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.horarios-table th {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.horarios-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.horarios-table tr:hover {
+    background-color: #ddd;
+}
+
+.btn-filter {
+    margin: 5px;
+}
+
+.btn-export {
+    margin-top: 20px;
+}
+
+.tabla-turno {
+    display: none;
+}
+
+.medio-ambiente {
+    text-align: justify;
+}
+
+/* Estilos específicos para Proyectos */
+.proyectos {
+    padding: 30px 15px;
+    
+}
+
+.proyecto {
+    margin-bottom: 40px;
+}
+
+.imagen {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.subtitulo {
+    color: #183315;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.fundamentos {
+    color: #186110;
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+.descripcion {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.listado {
+    list-style-type: disc;
+    padding-left: 40px;
+}
+
+.listado li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+/*Efecto POP UP*/
+.floating-sidebar {
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    width: 250px;
+    background: rgba(53, 109, 141, 0.85);
+    color: white;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    z-index: 1000;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.floating-sidebar:hover {
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+.floating-sidebar h4 {
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #f8f9fa;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+.list-group {
+    padding: 0;
+}
+
+.list-group-item {
+    background: transparent;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.list-group-item a {
+    color: #f8f9fa;
+    text-decoration: none;
+    display: block;
+}
+
+.list-group-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+    border-radius: 8px;
+}
+
+/* Botón flotante para abrir/cerrar */
+.toggle-btn {
+    position: fixed;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    background: rgba(34, 34, 34, 0.9);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1100;
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Sidebar oculto al inicio */
+.floating-sidebar {
+    position: fixed;
+    top: 50%;
+    left: -250px;  /* Oculto */
+    transform: translateY(-50%);
+    width: 230px;
+    background: rgba(34, 34, 34, 0.95);
+    color: white;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    z-index: 1000;
+    padding: 20px;
+    transition: left 0.3s ease-in-out;
+}
+
+/* Título */
+.floating-sidebar h4 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #f8f9fa;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+/* Lista de elementos */
+.list-group-item {
+    background: transparent;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.list-group-item a {
+    color: #f8f9fa;
+    text-decoration: none;
+}
+
+.list-group-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+    border-radius: 8px;
+}
+
+/* Mostrar sidebar al pasar el mouse */
+.floating-sidebar:hover {
+    left: 0;
+}
+
+/* Mostrar sidebar cuando se activa con el botón */
+.floating-sidebar.active {
+    left: 0;
+}
+
+
+
+/* Estilos para Novedades */
+#novedades {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.novedad {
+    margin-bottom: 20px;
+}
+
+.novedad h3 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.novedad a:hover {
+    background-color: #FFFFFF;
+}
+
+.novedad small {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Estilos para las tarjetas de usuario */
+.user-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.user-icon {
+    font-size: 2rem;
+    color: #0d6efd;
+}
+
+
+
+
+
+ /* Estilos para el sidebar principal */
+ .floating-sidebar {
+    position: fixed;
+    left: -200px;
+    /* Oculto por defecto */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+    height: auto;
+    background: #8fc0bc;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border-radius: 0 10px 10px 0;
+    padding: 15px;
+}
+
+.floating-sidebar.active {
+    left: 0;
+}
+
+/* Estilos para el sidebar vertical (accesos directos) */
+.vertical-sidebar {
+    position: fixed;
+    left: 0;
+    /* Pegado al borde izquierdo */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50%;
+    /* Ocupa la mitad de la pantalla */
+    width: auto;
+    /* Ancho automático según contenido */
+    background: rgba(143, 192, 188, 0.8);
+    /* Fondo semi-transparente */
+    z-index: 999;
+    /* Debajo del sidebar principal */
+    padding: 10px;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    /* Para alinear verticalmente */
+    flex-direction: column;
+    /* Alineación vertical */
+    justify-content: center;
+    /* Centrar verticalmente */
+}
+
+.vertical-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vertical-sidebar li {
+    margin-bottom: 5px;
+}
+
+.vertical-sidebar a {
+    display: block;
+    /* Para que los enlaces ocupen todo el ancho */
+    padding: 5px 10px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+    /* Evitar que el texto se corte */
+}
+
+.vertical-sidebar a:hover {
+    background-color: rgba(106, 170, 212, 0.5);
+    /* Color de fondo al pasar el mouse */
+}
+
+.floating-sidebar.active {
+    left: 0;
+}
+
+.floating-sidebar.active+.toggle-btn {
+    /* Estilos para la X */
+    left: 270px;
+    /* Ajusta la posición de la X */
+    background: transparent;
+    /* Fondo transparente */
+    color: black;
+    /* Color negro para la X */
+    font-size: 20px;
+    /* Tamaño de la X */
+    padding: 5px 10px;
+    /* Ajusta el padding */
+    border-radius: 5px;
+}
+
+.floating-sidebar.active+.toggle-btn::before {
+    /* Pseudo-elemento para la X */
+    content: "\00D7";
+    /* Código HTML para la X */
+}
+
+.list-group-item {
+    border: none;
+    margin: 5px 0;
+    border-radius: 5px !important;
+    transition: all 0.2s ease;
+}
+
+.list-group-item:hover {
+    background: #6aaad4;
+    transform: translateX(5px);
+}
+
+.list-group-item a {
+    color: #333;
+    font-weight: 500;
+}
