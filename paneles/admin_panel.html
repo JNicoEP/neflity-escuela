@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        main {
+            width: 90%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        button.reject {
+            background-color: #e74c3c;
+        }
+
+        button.reject:hover {
+            background-color: #c0392b;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <header>
+        <h1 id="adminPanelTitulo">Panel de Administración</h1>
+        <button id="botonInicio">Ir al Inicio</button>
+    </header>
+    <main id="adminPanelMain">
+        <h2 id="adminPanelSubtitulo">Docentes Pendientes de Aprobación</h2>
+        <table id="tablaDocentesPendientes">
+            <thead>
+                <tr>
+                    <th id="tablaHeaderNombre">Nombre</th>
+                    <th id="tablaHeaderCorreo">Correo Electrónico</th>
+                    <th id="tablaHeaderDocumentos">Documentos</th>
+                    <th id="tablaHeaderAcciones">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaBodyDocentesPendientes">
+            </tbody>
+        </table>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const tablaDocentes = document.getElementById('tablaBodyDocentesPendientes');
+
+    function cargarDocentesPendientes() {
+        tablaDocentes.innerHTML = '';
+        fetch('/neflity-escuela-main/php/admin_panel/obtener_docentes_pendientes.php')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(docente => {
+                    let fila = tablaDocentes.insertRow();
+                    let celdaNombre = fila.insertCell(0);
+                    let celdaCorreo = fila.insertCell(1);
+                    let celdaDocumentos = fila.insertCell(2);
+                    let celdaAcciones = fila.insertCell(3);
+
+                    celdaNombre.textContent = docente.nombre;
+                    celdaCorreo.textContent = docente.email;
+
+                    if (docente.documentos && docente.documentos.length > 0) {
+                        docente.documentos.forEach(documento => {
+                            let enlace = document.createElement('a');
+                            enlace.href = documento.ruta;
+                            enlace.textContent = documento.nombre;
+                            celdaDocumentos.appendChild(enlace);
+                            celdaDocumentos.appendChild(document.createElement('br'));
+                        });
+                    } else {
+                        celdaDocumentos.textContent = 'No hay documentos';
+                    }
+
+                    let botonAprobar = document.createElement('button');
+                    botonAprobar.textContent = 'Aprobar';
+                    botonAprobar.addEventListener('click', () => aprobarDocente(docente.id));
+
+                    let botonRechazar = document.createElement('button');
+                    botonRechazar.textContent = 'Rechazar';
+                    botonRechazar.classList.add('reject');
+                    botonRechazar.addEventListener('click', () => rechazarDocente(docente.id));
+
+                    celdaAcciones.appendChild(botonAprobar);
+                    celdaAcciones.appendChild(botonRechazar);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function aprobarDocente(id) {
+        fetch('/neflity-escuela-main/php/admin_panel/aprobar_docente.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    cargarDocentesPendientes();
+                } else {
+                    alert('Error al aprobar el docente.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function rechazarDocente(id) {
+        fetch('/neflity-escuela-main/php/admin_panel/rechazar_docente.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    cargarDocentesPendientes();
+                } else {
+                    alert('Error al rechazar el docente.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    cargarDocentesPendientes();
+    document.getElementById('botonInicio').addEventListener('click', function() {
+            window.location.href = '/neflity-escuela-main/index.html'; // Ajusta la ruta si es necesario
+        });
+});
+    </script>
+</body>
+</html>
